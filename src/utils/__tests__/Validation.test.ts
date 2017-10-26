@@ -16,11 +16,13 @@ class TestModel extends Model {
     const definition: mongoose.SchemaDefinition = {
       testing_field1: {
         type: String,
-        required: true
+        required: true,
+        max: 10
       },
       testing_field2: {
         type: String,
-        required: true
+        required: true,
+        min: 10
       },
       testing_field3: {
         type: String,
@@ -34,8 +36,8 @@ describe('Test validator', () => {
   let model: Model;
   before(() => {
     values = {
-      testing_field1: 'hello world',
-      testing_field2: 'hello world'
+      testing_field1: 'helloworld',
+      testing_field2: 'helloworld'
     };
     model = new TestModel();
   });

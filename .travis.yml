@@ -1,0 +1,9 @@
+language: node_js
+node_js:
+  - lts/*
+before_install:
+  - mv example.env .env
+install:
+  - yarn install
+script:
+  - yarn ts:test
