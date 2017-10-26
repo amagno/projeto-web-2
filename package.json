@@ -32,8 +32,8 @@
   },
   "scripts": {
     "ts:build": "tsc",
-    "ts:watch": "nodemon ts-src/boot/server.ts --exec ts-node",
-    "ts:test": "mocha -r ts-node/register ts-src/**/*.test.ts",
+    "ts:watch": "nodemon src/boot/server.ts --exec ts-node",
+    "ts:test": "mocha -r ts-node/register src/**/*.test.ts",
     "dev": "nodemon src/server.js --exec babel-node",
     "new": "nodemon src/new_server.js --exec babel-node"
   },
