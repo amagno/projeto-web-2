@@ -1,0 +1,101 @@
+#message {
+  display: block;
+  position: fixed;
+  top: -50px;
+  left: 440px;
+  z-index: 9999999;
+}
+#message span b {
+  display: block;
+}
+#message span {
+  padding: 10.5px;
+  display: inline-block;
+  background-color: #de4f4f;  
+  text-align: center;
+  font-size: 15px;
+  width: 400px;  
+  color: #fff;
+  text-transform: uppercase;
+  font-family: 'ProximaNovaT-Thin';
+}
+
+.login-form {
+  width: 400px;
+  margin: 100px auto;
+  background-color: #2b2e39;
+  padding: 25px;
+}
+.login-form h6 {
+  text-align: center;
+  font-size: 28px;
+  color: #fff;
+  text-transform: uppercase ;
+  font-family: 'ProximaNovaT-Thin';
+  margin-bottom: 20px;
+}
+.login-form form {
+  text-align: center;
+}
+.login-form label {
+  display: block;
+  color: white;
+  font-weight: bold;
+  font-family: 'ProximaNovaT-Thin';
+  line-height: 20px;
+}
+.login-form .inputs {
+  text-align: left;
+  width: 200px;
+  margin: 0 auto;
+}
+.login-form .inputs div {
+  margin: 10px 0;
+}
+.login-form input {
+  border: 1px solid white;
+  height: 26px;
+  width: 200px;
+}
+.login-form button {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  font-family: 'ProximaNovaT-Thin';
+  cursor: pointer;
+  text-transform: uppercase;
+}
+.login-form a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  font-family: 'ProximaNovaT-Thin';
+  cursor: pointer;
+  text-transform: uppercase;
+}
+.login-form button:hover {
+  color: #de4f4f;
+}
+.posts {
+  margin-top: 20px;
+}
+.post {
+  width: 80%;
+  margin: 10px auto;  
+}
+.post-image {
+  text-align: center;
+}
+.post-info {
+  font-family: 'ProximaNovaT-Thin';  
+  /* border: 1px solid black; */
+  padding: 10px;
+}
+.post-content {
+  font-family: 'ProximaNova-Regular', arial, sans-serif;
+  font-size: 15px;
+  letter-spacing: 1.5px;
+  line-height: 20px;
+  /* border: 1px solid black; */
+  padding: 10px 20px;
+}
