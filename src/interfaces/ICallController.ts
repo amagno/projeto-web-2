@@ -5,5 +5,5 @@ import IModel from './IModel';
 export default interface ICallController {
   request: Request;
   response: Response;
-  models: IModel[];
+  models?: IModel[];
 }

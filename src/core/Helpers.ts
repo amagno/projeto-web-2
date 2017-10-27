@@ -17,7 +17,7 @@ export const configureApp = (core: Core, options: IApplicationOptions): Core => 
       configureView(core), options.middlewares
     ), options.routes, extractModels(options.models));
 };
-export const extractModels = (models: Model[]): IModel[] => {
+export const extractModels = (models: Model[] = []): IModel[] => {
   return models.map((model) => ({
     name: model.name(),
     model: model
@@ -29,6 +29,7 @@ export const configureRoutes = (core: Core, routes: IRoute[], models: IModel[]):
     if (!route.controller && !route.render) {
       throw new Error(`Error on: ${route.path} define render or controller on routes config.`);
     }
+
     console.log(`Configure route [${route.type}]: ${route.path}`);
     callRoute(core, route, models);
   });
@@ -43,9 +44,15 @@ export const callRoute = (core: Core, route: IRoute, models: IModel[]) => {
     }));
     configureMiddlewares(core, middlewares);
   }
-  Core.express[route.type](route.path, (request: express.Request, response: express.Response) => {
-    callController(route.controller, { request, response, models });
-  });
+  if (typeof route.controller === 'function') {
+    Core.express[route.type](route.path, (request: express.Request, response: express.Response) => {
+        route.controller({ request, response, models });
+    });
+  } else {
+    Core.express[route.type](route.path, (request: express.Request, response: express.Response) => {
+      callController(<string>route.controller, { request, response, models });
+    });
+  }
 };
 //
 export const callController = (controller: string, controllerOpts: ICallController): express.Response => {
@@ -58,7 +65,7 @@ export const callController = (controller: string, controllerOpts: ICallControll
   return new controllerClass(controllerOpts).index();
 };
 //
-export const configureMiddlewares = (core: Core, middlewares: IMiddleware[]): Core => {
+export const configureMiddlewares = (core: Core, middlewares: IMiddleware[] = []): Core => {
   middlewares.forEach((middleware) => {
     if (middleware.path) {
       Core.express.use(middleware.path, middleware.middleware);
