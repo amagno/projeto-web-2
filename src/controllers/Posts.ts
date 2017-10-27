@@ -21,6 +21,6 @@ export default class Posts extends BaseController {
     return this.response.render('new_post');
   }
   async newPost() {
-
+    console.log(this.request.body);
   }
  }

@@ -10,12 +10,13 @@ import IModel from '../interfaces/IModel';
 import IApplicationOptions from '../interfaces/IApplicationOptions';
 import ICallController from '../interfaces/ICallController';
 // import handlerbarsIntl from 'handlebars-intl';
+import * as SocketIO from 'socket.io';
 
-export const configureApp = (core: Core, options: IApplicationOptions): Core => {
+export const configureApp = (core: Core, options: IApplicationOptions, socketServer: SocketIO.Server): Core => {
   return configureRoutes(
     configureMiddlewares(
       configureView(core), options.middlewares
-    ), options.routes, extractModels(options.models));
+    ), options.routes, extractModels(options.models), socketServer);
 };
 export const extractModels = (models: Model[] = []): IModel[] => {
   return models.map((model) => ({
@@ -24,19 +25,19 @@ export const extractModels = (models: Model[] = []): IModel[] => {
   }));
 };
 //
-export const configureRoutes = (core: Core, routes: IRoute[], models: IModel[]): Core => {
+export const configureRoutes = (core: Core, routes: IRoute[], models: IModel[], socketServer: SocketIO.Server): Core => {
   routes.forEach((route) => {
     if (!route.controller && !route.render) {
       throw new Error(`Error on: ${route.path} define render or controller on routes config.`);
     }
 
     console.log(`Configure route [${route.type}]: ${route.path}`);
-    callRoute(core, route, models);
+    callRoute(core, route, models, socketServer);
   });
   return core;
 };
 //
-export const callRoute = (core: Core, route: IRoute, models: IModel[]) => {
+export const callRoute = (core: Core, route: IRoute, models: IModel[], socketServer: SocketIO.Server) => {
   if (route.middlewares) {
     const middlewares = route.middlewares.map((m) => ({
       path: route.path,
@@ -44,15 +45,18 @@ export const callRoute = (core: Core, route: IRoute, models: IModel[]) => {
     }));
     configureMiddlewares(core, middlewares);
   }
-  if (typeof route.controller === 'function') {
-    Core.express[route.type](route.path, (request: express.Request, response: express.Response) => {
-        route.controller({ request, response, models });
-    });
-  } else {
-    Core.express[route.type](route.path, (request: express.Request, response: express.Response) => {
-      callController(<string>route.controller, { request, response, models });
-    });
-  }
+  Core.express[route.type](route.path, (request: express.Request, response: express.Response) => {
+    let io: SocketIO.Socket = undefined;
+    if (route.io) {
+      socketServer.on('connection', (socket) => {
+        io = socket;
+      });
+    }
+    if (typeof route.controller === 'function') {
+      route.controller({ request, response, models, io });
+    }
+    callController(<string>route.controller, { request, response, models, io });
+  });
 };
 //
 export const callController = (controller: string, controllerOpts: ICallController): express.Response => {

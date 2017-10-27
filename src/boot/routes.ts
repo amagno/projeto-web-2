@@ -19,6 +19,11 @@ const routes: IRoute[] = [
   },
   {
     type: 'get',
+    path: '/register',
+    controller: 'Users@getRegister'
+  },
+  {
+    type: 'get',
     path: '/posts',
     controller: 'Posts'
   }

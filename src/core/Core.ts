@@ -6,6 +6,7 @@ import IApplicationOptions from '../interfaces/IApplicationOptions';
 import IModel from '../interfaces/IModel';
 import Model from '../models/Model';
 import * as mongoose from 'mongoose';
+import * as SocketIO from 'socket.io';
 /**
  * @abstract
  * @class Kernel
@@ -20,16 +21,16 @@ export default abstract class Core  {
    */
   protected server: http.Server;
   protected routes: IRoute[];
-  protected options: IApplicationOptions;
   protected app: Core;
+  protected socketServer: SocketIO.Server;
   /**
    * Creates an instance of Core.
    * @memberof Core
    */
   constructor(options: IApplicationOptions) {
-    this.options = options;
-    this.app = configureApp(this, options);
     this.server = http.createServer(Core.express);
+    this.socketServer = SocketIO.listen(this.server);
+    this.app = configureApp(this, options, this.socketServer);
     // console.log(this.getModel('user'));
   }
   /**

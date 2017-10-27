@@ -7,4 +7,10 @@ export default class UsersController extends BaseController {
   postLogin() {
     console.log(this.request.body);
   }
+  getRegister() {
+    return this.response.render('register');
+  }
+  postRegister() {
+
+  }
 }

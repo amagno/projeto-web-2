@@ -8,6 +8,7 @@ import * as bodyParser from 'body-parser';
 import * as express from 'express';
 import * as session from 'express-session';
 import * as connectMongo from 'connect-mongo';
+import { compilerDevMiddleware } from './compiler';
 
 dotenv.config();
 
@@ -37,4 +38,9 @@ const middlewares: IMiddleware[] = [
   }
 ];
 
+if (process.env.NODE_ENV === 'dev') {
+  middlewares.push({
+    middleware: compilerDevMiddleware
+  });
+}
 export default middlewares;
