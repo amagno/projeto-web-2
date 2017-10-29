@@ -7,4 +7,4 @@ Application.start({
   routes,
   middlewares,
   models
-}, parseInt(process.env.PORT), process.env.ADDRESS);
+}, parseInt(process.env.PORT));

@@ -35,8 +35,8 @@ export default abstract class Core  {
    * @param {string} [address]
    * @memberof Core
    */
-  public listen(port: number, address: string) {
-    this.server.listen(port || 5000, address || '127.0.0.1', () => {
+  public listen(port: number, address?: string) {
+    this.server.listen(port || 5000, address, () => {
       this.listenLog(process.env.NODE_ENV, this.server.address().address, this.server.address().port);
     });
   }
