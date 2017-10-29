@@ -37,7 +37,7 @@ export default abstract class Core  {
    */
   public listen(port: number, address: string) {
     this.server.listen(port || 3000, address || '127.0.0.1', () => {
-      this.listenLog(this.server.address().address, this.server.address().port);
+      this.listenLog(process.env.NODE_ENV, this.server.address().address, this.server.address().port);
     });
   }
   /**
@@ -46,7 +46,7 @@ export default abstract class Core  {
    * @param {number} port
    * @memberof Core
    */
-  private listenLog(address: string, port: number): void {
-    console.log(`Server is running on http://${address}:${port}`);
+  private listenLog(env: string, address: string, port: number): void {
+    console.log(`Server: [${env}] is running on http://${address}:${port}`);
   }
 }
