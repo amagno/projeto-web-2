@@ -24,11 +24,11 @@
     "json-loader": "^0.5.7"    
   },
   "scripts": {
-    "build": "node make_build.js",
+    "build": "tsc",
     "test": "mocha -r ts-node/register src/**/*.test.ts",
     "dev": "nodemon src/boot/server.ts --exec ts-node",
     "start": "node -r dotenv/config dist/src/boot/server.js",
-    "prestart": "yarn build"
+    "prestart": "node make_build.js"
   },
   "devDependencies": {
     "@types/crypto-js": "^3.1.37",    

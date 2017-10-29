@@ -1,5 +1,8 @@
 import * as mongoose from 'mongoose';
+import * as dotenv from 'dotenv';
 
+dotenv.config();
+console.log(`Connect to mongoURL: ${process.env.MONGO_URL}`);
 export default class Mongo {
   private static instance: mongoose.Connection = undefined;
   public static init(
