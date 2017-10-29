@@ -9,11 +9,16 @@
     <link rel="stylesheet" href="public/new-styles.css">
     <link rel="stylesheet" href="public/fonts.css">
     <link rel="stylesheet" href="public/responsive.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
     <div class="container">
-        <div id="message" style="margin-top: 50px"></div>
+        <div id="message" style="margin-top: 50px">
+            {{#each errors as |value index|}}
+                <div class="message-error"><b>{{index}}:</b> {{value}}</div>
+            {{/each}}
+        </div>            
         {{!-- NAVBAR --}}
         {{> navbar}}
         {{!-- NAVBAR --}}
@@ -26,9 +31,7 @@
         {{> footer}}
         {{!-- FOOTER --}}
     </div>
-    
-    <script src="public/compiled/{{{clientCompiled}}}"></script>
-
+    {{{scripts.main}}}
 </body>
 
 </html>

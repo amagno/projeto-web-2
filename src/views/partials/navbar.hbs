@@ -20,10 +20,18 @@
     </button>
     <ul class="nav nav-links right">
         {{#if user}}
+        <li style="margin-right: 25px;">
+
+             <a href="/">
+                <i class="fa fa-free-code-camp fa-lg custom" aria-hidden="true"></i>
+                <b style="text-transform: capitalize;">{{user.name}}</b>
+             </a>
+        </li>
+        <li><span class="text-bar"></span></li>        
         <li><a href="/logout" >Logout</a></li>
         {{else}}
         <li><a href="/login">Login</a></li>
-        <li><span class="text-bar"></span></li>        
+        <li><span class="text-bar"></span></li>
         <li><a href="/register">Register</a></li>
         {{/if}}
     </ul>

@@ -1,23 +1,22 @@
 #message {
   display: block;
-  position: fixed;
-  top: -50px;
-  left: 440px;
+  position: sticky;
   z-index: 9999999;
+  width: 440px;
+  margin: 0 auto;
 }
-#message span b {
-  display: block;
-}
-#message span {
+#message .message-error {
   padding: 10.5px;
-  display: inline-block;
   background-color: #de4f4f;  
   text-align: center;
   font-size: 15px;
-  width: 400px;  
+  width: 440px;  
   color: #fff;
   text-transform: uppercase;
   font-family: 'ProximaNovaT-Thin';
+}
+#message div b {
+  text-decoration-line: underline;
 }
 
 .login-form {
@@ -98,4 +97,85 @@
   line-height: 20px;
   /* border: 1px solid black; */
   padding: 10px 20px;
+}
+.post-form {
+  display: block;
+  background-color: #2b2e39;
+  width: 50%;
+  margin: 100px auto;
+  padding: 20px;
+}
+.post-form form{
+  width: 80%;
+  margin: auto;
+}
+.post-form .inputs label {
+  display: block;
+  color: white;
+  margin-bottom: 2px;
+  margin-top: 10px;
+}
+.post-form input {
+  height: 20px;
+  width: 100%;
+}
+.post-form textarea {
+  width: 100%;
+  margin-bottom: 10px;
+}
+.post-form .buttons {
+  width: 60%;
+  margin: auto;
+  text-align: center
+}
+.post-form .buttons button {
+  height: 50px;
+  width: 100px;
+  color: #2b2e39;
+  text-transform: uppercase ;
+  font-family: 'ProximaNovaT-Thin';
+  font-size: 15px;
+  cursor: pointer;
+}
+.post-form .buttons button:hover {
+  background-color: #de4f4f;
+  color: white;
+}
+.post-form h1 {
+  text-align: center;
+  font-size: 28px;
+  color: #fff;
+  text-transform: uppercase ;
+  font-family: 'ProximaNovaT-Thin';
+  margin-bottom: 20px;
+}
+
+.custom {
+  margin: 0 5px;
+}
+
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.btn-upload {
+  font-family: 'ProximaNovaT-Thin';  
+  border: 1px solid gray;
+  color: gray;
+  background-color: white;
+  padding: 5px 15px;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.upload-btn-wrapper input[type=file] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
 }

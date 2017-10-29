@@ -1,22 +1,30 @@
 <div class="login-form">
   <h3 style="color: white; text-align: center; font-family:'ProximaNovaT-Thin', arial, sans-serif; margin: 10px;">REGISTRO</h3>    
-  <form action="/register" method="post">
+  <form action="/register" method="post" id="form-register">
     <div>
       <label for="">NOME</label>
-      <input type="text" name="name">
+      <input type="text" name="name" required minlength="6">
     </div>
     <div>
       <label for="">E-MAIL</label>
-      <input type="text" name="email">
+      <input type="email" name="email" required>
     </div>
     <div>
       <label for="">PASSWORD</label>
-      <input type="text" name="password">
+      <input type="password" name="password" required minlength="6">
+    </div>
+    <div>
+      <label for="">CONFIRM PASSWORD</label>
+      <input type="password" name="password_confirm" required minlength="6">
     </div>
     <div>
       <button type="submit" style="padding: 10px; margin: 10px; color: black; font-size: 18px;">
         <b>Enviar</b>
       </button>
+      <button type="submit" style="padding: 10px; margin: 10px; color: black; font-size: 18px;">
+        <b>Limpar</b>
+      </button>
     </div>
   </form>
 </div>
+{{{scripts.register}}}

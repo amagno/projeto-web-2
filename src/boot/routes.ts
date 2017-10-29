@@ -1,16 +1,15 @@
 import IRoute from '../interfaces/IRoute';
 
-
 const routes: IRoute[] = [
   {
     type: 'get',
     path: '/',
-    controller: 'Home/Home'
+    controller: 'Home/Home',
   },
   {
     type: 'get',
     path: '/login',
-    controller: 'Users@getLogin'
+    controller: 'Users@getLogin',
   },
   {
     type: 'post',
@@ -19,13 +18,38 @@ const routes: IRoute[] = [
   },
   {
     type: 'get',
+    path: '/logout',
+    controller: 'Users@logout'
+  },
+  {
+    type: 'get',
     path: '/register',
     controller: 'Users@getRegister'
+  },
+  {
+    type: 'post',
+    path: '/register',
+    controller: 'Users@postRegister'
   },
   {
     type: 'get',
     path: '/posts',
     controller: 'Posts'
+  },
+  {
+    type: 'get',
+    path: '/post',
+    controller: 'Posts@getNewPost'
+  },
+  {
+    type: 'post',
+    path: '/post',
+    controller: 'Posts@postNewPost'
+  },
+  {
+    type: 'get',
+    path: '/image/:id',
+    controller: 'Images@getImage'
   }
 ];
 

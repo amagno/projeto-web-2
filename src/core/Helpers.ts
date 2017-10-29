@@ -10,13 +10,12 @@ import IModel from '../interfaces/IModel';
 import IApplicationOptions from '../interfaces/IApplicationOptions';
 import ICallController from '../interfaces/ICallController';
 // import handlerbarsIntl from 'handlebars-intl';
-import * as SocketIO from 'socket.io';
 
-export const configureApp = (core: Core, options: IApplicationOptions, socketServer: SocketIO.Server): Core => {
+export const configureApp = (core: Core, options: IApplicationOptions): Core => {
   return configureRoutes(
     configureMiddlewares(
       configureView(core), options.middlewares
-    ), options.routes, extractModels(options.models), socketServer);
+    ), options.routes, extractModels(options.models));
 };
 export const extractModels = (models: Model[] = []): IModel[] => {
   return models.map((model) => ({
@@ -25,19 +24,19 @@ export const extractModels = (models: Model[] = []): IModel[] => {
   }));
 };
 //
-export const configureRoutes = (core: Core, routes: IRoute[], models: IModel[], socketServer: SocketIO.Server): Core => {
+export const configureRoutes = (core: Core, routes: IRoute[], models: IModel[]): Core => {
   routes.forEach((route) => {
     if (!route.controller && !route.render) {
       throw new Error(`Error on: ${route.path} define render or controller on routes config.`);
     }
 
     console.log(`Configure route [${route.type}]: ${route.path}`);
-    callRoute(core, route, models, socketServer);
+    callRoute(core, route, models);
   });
   return core;
 };
 //
-export const callRoute = (core: Core, route: IRoute, models: IModel[], socketServer: SocketIO.Server) => {
+export const callRoute = (core: Core, route: IRoute, models: IModel[]) => {
   if (route.middlewares) {
     const middlewares = route.middlewares.map((m) => ({
       path: route.path,
@@ -45,17 +44,13 @@ export const callRoute = (core: Core, route: IRoute, models: IModel[], socketSer
     }));
     configureMiddlewares(core, middlewares);
   }
-  Core.express[route.type](route.path, (request: express.Request, response: express.Response) => {
-    let io: SocketIO.Socket = undefined;
-    if (route.io) {
-      socketServer.on('connection', (socket) => {
-        io = socket;
-      });
-    }
+  Core.express[route.type](route.path, async (request: express.Request, response: express.Response) => {
+    // If conytoller is function
     if (typeof route.controller === 'function') {
-      route.controller({ request, response, models, io });
+      return route.controller({ request, response, models });
     }
-    callController(<string>route.controller, { request, response, models, io });
+    // Call controoler if string
+    return callController(<string>route.controller, { request, response, models });
   });
 };
 //
@@ -72,19 +67,19 @@ export const callController = (controller: string, controllerOpts: ICallControll
 export const configureMiddlewares = (core: Core, middlewares: IMiddleware[] = []): Core => {
   middlewares.forEach((middleware) => {
     if (middleware.path) {
-      Core.express.use(middleware.path, middleware.middleware);
+      return Core.express.use(middleware.path, middleware.middleware);
     }
-    Core.express.use(middleware.middleware);
+    return Core.express.use(middleware.middleware);
   });
   return core;
 };
-
+// Configure handlebars view
 export const configureView = (core: Core): Core => {
   const hbs = expressHandlebars.create({
     defaultLayout: 'default',
     extname: '.hbs',
     layoutsDir: path.join(__dirname, '..', 'views', 'layouts'),
-    partialsDir: path.join(__dirname, '..', 'views', 'partials')
+    partialsDir: path.join(__dirname, '..', 'views', 'partials'),
   });
   Core.express.engine('.hbs', hbs.engine);
   Core.express.set('view engine', '.hbs');

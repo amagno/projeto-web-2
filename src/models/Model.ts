@@ -6,9 +6,11 @@ import * as path from 'path';
 export default abstract class Model {
   protected mongoModel: mongoose.Model<any>;
   protected schema: mongoose.Schema;
-  constructor() {
-    this.schema = new mongoose.Schema(this.definition(), { timestamps: true });
-    this.mongoModel = mongoose.model(this.name(), this.schema);
+  constructor(mongooseModel: boolean = true) {
+    if (mongooseModel) {
+      this.schema = new mongoose.Schema(this.definition(), { timestamps: true });
+      this.mongoModel = mongoose.model(this.name(), this.schema);
+    }
   }
   public mongo(): mongoose.Model<any> {
     return this.mongoModel;

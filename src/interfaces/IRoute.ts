@@ -10,5 +10,5 @@ export default interface IRoute {
   controller?: string | any;
   render?: string;
   middlewares?: IMiddleware[];
-  io?: boolean;
+  scripts?: string[];
 }

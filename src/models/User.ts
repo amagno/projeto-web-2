@@ -1,13 +1,8 @@
 import * as mongoose from 'mongoose';
 import Model from './Model';
+import IValidateModel from '../interfaces/IValidateModel';
 
-export interface IUser {
-  name: string;
-  email: string;
-  password: string;
-}
-
-class User extends Model {
+class User extends Model implements IValidateModel {
   definition() {
     const definition: mongoose.SchemaDefinition = {
       name: {
@@ -19,7 +14,6 @@ class User extends Model {
         type: String,
         required: true,
         unique: true,
-        minlength: 8,
         maxlength: 100
       },
       password: {

@@ -6,7 +6,6 @@ import IApplicationOptions from '../interfaces/IApplicationOptions';
 import IModel from '../interfaces/IModel';
 import Model from '../models/Model';
 import * as mongoose from 'mongoose';
-import * as SocketIO from 'socket.io';
 /**
  * @abstract
  * @class Kernel
@@ -22,15 +21,13 @@ export default abstract class Core  {
   protected server: http.Server;
   protected routes: IRoute[];
   protected app: Core;
-  protected socketServer: SocketIO.Server;
   /**
    * Creates an instance of Core.
    * @memberof Core
    */
   constructor(options: IApplicationOptions) {
     this.server = http.createServer(Core.express);
-    this.socketServer = SocketIO.listen(this.server);
-    this.app = configureApp(this, options, this.socketServer);
+    this.app = configureApp(this, options);
     // console.log(this.getModel('user'));
   }
   /**
@@ -38,8 +35,8 @@ export default abstract class Core  {
    * @param {string} [address]
    * @memberof Core
    */
-  public listen(port: number = 3000, address: string = '127.0.0.1') {
-    this.server.listen(port, address, () => {
+  public listen(port: number, address: string) {
+    this.server.listen(port || 3000, address || '127.0.0.1', () => {
       this.listenLog(this.server.address().address, this.server.address().port);
     });
   }

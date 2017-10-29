@@ -1,7 +1,8 @@
 import Model from './Model';
 import { Schema } from 'mongoose';
+import IValidateModel from '../interfaces/IValidateModel';
 
-export default class Post extends Model {
+export default class Post extends Model implements IValidateModel {
   name() {
     return 'post';
   }
@@ -17,6 +18,7 @@ export default class Post extends Model {
       },
       image: {
         type: Schema.Types.ObjectId,
+        required: true,
         ref: 'image'
       },
       user: {

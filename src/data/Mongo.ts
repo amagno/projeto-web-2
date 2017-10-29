@@ -16,7 +16,7 @@ export default class Mongo {
         console.log(error);
       });
       connection.once('open', () => {
-        console.log('connection to database success');
+        console.log('connection to MongoDB database success');
       });
       Mongo.instance = connection;
     }

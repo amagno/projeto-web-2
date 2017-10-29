@@ -2,22 +2,24 @@ import * as path from 'path';
 import { CheckerPlugin } from 'awesome-typescript-loader';
 import { Configuration } from 'webpack';
 const config: Configuration = {
-  entry: path.join(__dirname, 'src', '__client__', 'main.ts'),
+  entry: {},
   output: {
     path: path.join(__dirname, 'public', '__compiled__'),
-    filename: 'client_compiled.js'
+    filename: '[name].js'
   },
   target: 'web',
   resolve: {
-    extensions: ['.ts']
+    extensions: ['.ts', '.js', '.json']
   },
+  devtool: 'source-map',
   module: {
     rules: [
       {
-        test: /\.js?$/,
+        test: /\.tsx?$/,
         loader: 'awesome-typescript-loader',
-        exclude: /node_modules/
-      }
+      },
+      { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
+      { test: /\.json$/, loader: 'json-loader' }
     ]
   },
   plugins: [

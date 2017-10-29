@@ -1,4 +1,12 @@
 {
   "ignore": ["public", "node_modules"],
+  "env": {
+    "PORT": "3000",
+    "NODE_ENV": "dev",
+    "MONGO_URL": "mongodb://localhost:27017/projeto-web-2",
+    "UPLOAD_PATH": "uploads/",
+    "SESSION_KEY": "dev_session_key",
+    "CIPHER_KEY": "dev_cipher_key"
+  },
   "ext": ".js, .hbs, .ts"
 }

@@ -9,12 +9,10 @@ export default abstract class BaseController {
   public request: Request;
   public response: Response;
   public models: IModel[];
-  public io: SocketIO.Socket;
   constructor(opts: ICallController) {
     this.request = opts.request;
     this.response = opts.response;
     this.models = opts.models;
-    this.io = opts.io;
   }
   public model(name: string): Model {
     let m: IModel;
