@@ -12,6 +12,6 @@ try {
   fsExtra.copySync('public', 'dist/public');
   fsExtra.mkdir('dist/uploads');
 } catch (error) {
-  console.log(error);
+  console.log(error.stdout.toString('utf8'));
 }
 
