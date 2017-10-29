@@ -7,7 +7,7 @@ import * as express from 'express';
 import * as multer from 'multer';
 import { scripts } from './compiler';
 import { authSession, userMiddleware, authMiddleware } from '../middlewares/usersMiddleware';
-import { compilerDevMiddleware, compilerMiddleware } from '../middlewares/compilerMIddleware';
+import { compilerMiddleware } from '../middlewares/compilerMIddleware';
 
 const middlewares: IMiddleware[] = [
   {
@@ -36,7 +36,7 @@ const middlewares: IMiddleware[] = [
     middleware: multer({ dest: process.env.UPLOAD_PATH || 'uploads/' }).single('image')
   },
   {
-    middleware: process.env.NODE_ENV === 'dev' ? compilerDevMiddleware(scripts) : compilerMiddleware(scripts)
+    middleware: compilerMiddleware(scripts)
   }
 ];
 

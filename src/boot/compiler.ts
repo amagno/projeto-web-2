@@ -8,7 +8,6 @@
 // }
 export const scripts: string[] = [
   'main',
-  'login',
   'register'
 ];
 // Compiler

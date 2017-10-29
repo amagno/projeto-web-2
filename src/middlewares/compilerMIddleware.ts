@@ -1,5 +1,5 @@
 import * as express from 'express';
-import { compilerClient } from '../utils/compilerClient';
+// import { compilerClient } from '../utils/compilerClient';
 
 export const compilerMiddleware = (scripts: string[]) => (req: express.Request, res: express.Response, next: express.NextFunction) => {
   res.locals.scripts = {};
@@ -8,7 +8,7 @@ export const compilerMiddleware = (scripts: string[]) => (req: express.Request, 
   });
   next();
 };
-export const compilerDevMiddleware = (scripts: string[]) => {
-  compilerClient(scripts);
-  return compilerMiddleware(scripts);
-};
+// export const compilerDevMiddleware = (scripts: string[]) => {
+//   compilerClient(scripts);
+//   return compilerMiddleware(scripts);
+// };
