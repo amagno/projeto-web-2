@@ -13,6 +13,11 @@
       </button>
     </form>
   </div>
+  {{#unless posts}}
+    <div style="width: 400px; margin: 100px auto; text-align: center;">
+      <h3 style="text-transform: uppercase; color: #de4f4f;">Sem nada até o momento</h3>      
+    </div> 
+  {{/unless}}
   {{#each posts}}
   <div class="post">
     <div class="title-default">

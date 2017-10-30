@@ -8,7 +8,6 @@ dotenv.config();
 
 export default class Posts extends BaseController {
   async index() {
-    console.log(this.response.locals);
     const postsModel = this.model('post').mongo();
     const userModel = this.model('user').mongo();
     let search = {};
