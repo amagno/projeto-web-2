@@ -95,8 +95,14 @@ export default class Posts extends BaseController {
     if (postId && user) {
       try {
         const post = await this.model('post').mongo().findById(postId);
+        const image = await this.model('image').mongo().findById(post.image);
         if (post.user.toString() === user.id.toString()) {
           await this.model('post').mongo().findByIdAndRemove(post.id);
+          await this.model('image').mongo().findByIdAndRemove(image.id);
+
+          if (fs.existsSync(image.path)) {
+            await fs.unlinkSync(image.path);
+          }
           return this.response.redirect('/posts');
         }
       } catch (error) {
