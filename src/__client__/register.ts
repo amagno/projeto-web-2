@@ -9,7 +9,10 @@ form.addEventListener('submit', (event) => {
     if (password.value !== password_confirm.value) {
       password.value = '';
       password_confirm.value = '';
-      document.getElementById('message').innerHTML = `<div class="message-error">Senhas não combinam!</div>`;
+      document.getElementById('message').innerHTML = `<div class="message-error">
+      <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+      Senhas não combinam!
+      </div>`;
       return;
     }
   }

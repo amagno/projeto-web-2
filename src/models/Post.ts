@@ -10,7 +10,7 @@ export default class Post extends Model implements IValidateModel {
     return {
       title: {
         type: String,
-        required: true
+        required: true,
       },
       content: {
         type: String,

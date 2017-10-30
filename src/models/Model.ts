@@ -9,6 +9,7 @@ export default abstract class Model {
   constructor(mongooseModel: boolean = true) {
     if (mongooseModel) {
       this.schema = new mongoose.Schema(this.definition(), { timestamps: true });
+      this.schema.index({ '$**': 'text' });
       this.mongoModel = mongoose.model(this.name(), this.schema);
     }
   }

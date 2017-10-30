@@ -16,7 +16,10 @@
     <div class="container">
         <div id="message" style="margin-top: 50px">
             {{#each errors as |value index|}}
-                <div class="message-error"><b>{{index}}:</b> {{value}}</div>
+                <div class="message-error">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                    <b>{{index}}:</b> {{value}}
+                </div>
             {{/each}}
         </div>            
         {{!-- NAVBAR --}}

@@ -1,4 +1,18 @@
 <div class="posts">
+  <div id="search-posts">
+    <form action="/posts" method="GET">
+      <a href="/posts">LIMPAR</a>      
+      <input type="text" name="q" placeholder="Buscar..." minlength="3">
+      <select name="f" id="">
+        <option value="title" selected>TÍTULO</option>
+        <option value="content">CONTEÚDO</option>        
+        <option value="email">E-MAIL</option>                           
+      </select>
+      <button>
+        <i class="fa fa-search fa-lg custom" aria-hidden="true"></i>
+      </button>
+    </form>
+  </div>
   {{#each posts}}
   <div class="post">
     <div class="title-default">
@@ -6,10 +20,11 @@
     </div>
     <p class="post-content">{{content}}</p>
     <div class="post-image">
-      <img src="/image/{{image}}" alt="{{image}}" style="max-width: 800px" />      
+      <img src="/image/{{image}}" alt="{{image}}" style="max-width: 800px" />   
     </div>
     <div class="post-info">
       <p><b>User: </b>{{user.name}} | {{user.email}}</p>
+      {{{ createdAt }}}
       {{!-- <p>{{formatDate createdAt day="numeric" month="long" year="numeric"}}</p> --}}
     </div>
   </div>

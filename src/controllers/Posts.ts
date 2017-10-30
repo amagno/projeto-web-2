@@ -8,19 +8,48 @@ dotenv.config();
 
 export default class Posts extends BaseController {
   async index() {
-    const posts = await this.model('post')
-    .mongo()
-    .find({}, {}, {
-      sort: {
-        createdAt: -1
-      }
-    })
-    .populate('user', '-password')
-    .exec();
-
-    return this.response.render('posts', {
-      posts
-    });
+    const postsModel = this.model('post').mongo();
+    const userModel = this.model('user').mongo();
+    let search = {};
+    const q = this.request.query.q;
+    const f = this.request.query.f;
+    if (q && f === 'title') {
+      search = {
+        title: { $regex: new RegExp(q), $options: 'i' }
+      };
+    }
+    if (q && f === 'content') {
+      search = {
+        content: { $regex: new RegExp(q), $options: 'i' }
+      };
+    }
+    if (q && f === 'email') {
+      const user = await userModel.find({
+        email: { $regex: new RegExp(q), $options: 'i' }
+      }) || [];
+      const aux: any = {
+        $or: []
+      };
+      user.forEach(user => {
+        aux.$or.push({ user: user.id });
+      });
+      search = aux;
+    }
+    try {
+      const posts = await postsModel
+      .find(search, {}, {
+        sort: {
+          createdAt: -1
+        }
+      })
+      .populate('user', '-password')
+      .exec();
+      return this.response.render('posts', {
+        posts
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
   getNewPost() {
     return this.response.render('new_post');

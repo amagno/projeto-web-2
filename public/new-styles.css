@@ -179,3 +179,46 @@
   top: 0;
   opacity: 0;
 }
+#search-posts {
+  width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
+  text-align: center;
+  padding: 5px;
+  line-height: 26px;
+}
+#search-posts span {
+  display: block;
+}
+#search-posts input {
+  border: 1px solid black;
+  height: 26px;
+}
+#search-posts select {
+  height: 26px;
+  border: 1px solid black;  
+}
+#search-posts button {
+  height: 26px;
+  width: 30px;
+  background-color: #2b2e39;
+  color: white;
+  cursor: pointer;
+}
+#search-posts button:hover {
+  background-color: #de4f4f;  
+  color: #2b2e39;
+}
+#search-posts a {
+  display: inline-block;
+  text-decoration: none;
+  font-family: 'ProximaNovaT-Bold';
+  background-color: #de4f4f;
+  color: #2b2e39;
+  padding: 0 5px;
+}
+#search-posts a:hover {
+  color: #de4f4f;
+  background-color: #2b2e39;
+}
