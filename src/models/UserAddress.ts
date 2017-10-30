@@ -2,34 +2,38 @@ import * as mongoose from 'mongoose';
 import Model from './Model';
 import IValidateModel from '../interfaces/IValidateModel';
 
-class User extends Model implements IValidateModel {
+class UserAddress extends Model implements IValidateModel {
   definition() {
     const definition: mongoose.SchemaDefinition = {
-      name: {
-        type: String,
-        required: true,
-        minlength: 6
-      },
-      email: {
-        type: String,
-        required: true,
-        unique: true,
-        maxlength: 100
-      },
-      password: {
-        type: String,
-        required: true,
-        minlength: 6
-      },
-      address: {
+      user: {
         type: mongoose.Schema.Types.ObjectId,
         required: true
+      },
+      rua: {
+        type: String,
+        required: true,
+        minlength: 6
+      },
+      estado: {
+        type: String,
+        required: true,
+        maxlength: 2
+      },
+      cidade: {
+        type: String,
+        required: true,
+        minlength: 6
+      },
+      cep: {
+        type: Number,
+        required: true,
+        minlength: 8
       }
     };
     return definition;
   }
   name() {
-    return 'user';
+    return 'user_address';
   }
 }
-export default User;
+export default UserAddress;

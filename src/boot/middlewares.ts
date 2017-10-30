@@ -32,6 +32,10 @@ const middlewares: IMiddleware[] = [
     middleware: authMiddleware
   },
   {
+    path: '/user',
+    middleware: authMiddleware
+  },
+  {
     path: '/post',
     middleware: multer({ dest: process.env.UPLOAD_PATH || 'uploads/' }).single('image')
   },

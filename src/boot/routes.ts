@@ -33,6 +33,11 @@ const routes: IRoute[] = [
   },
   {
     type: 'get',
+    path: '/user/:id',
+    controller: 'Users@getUserInfo'
+  },
+  {
+    type: 'get',
     path: '/posts',
     controller: 'Posts'
   },
