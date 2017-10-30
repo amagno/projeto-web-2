@@ -18,7 +18,10 @@
     <div class="title-default">
         <h3>{{title}}</h3>
     </div>
-    <p class="post-content">{{content}}</p>
+    <p class="post-content">
+      {{content}}
+      {{{isDelete id user.id}}}
+    </p>
     <div class="post-image">
       <img src="/image/{{image}}" alt="{{image}}" style="max-width: 800px" />   
     </div>

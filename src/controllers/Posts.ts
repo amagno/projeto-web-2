@@ -8,6 +8,7 @@ dotenv.config();
 
 export default class Posts extends BaseController {
   async index() {
+    console.log(this.response.locals);
     const postsModel = this.model('post').mongo();
     const userModel = this.model('user').mongo();
     let search = {};
@@ -45,7 +46,19 @@ export default class Posts extends BaseController {
       .populate('user', '-password')
       .exec();
       return this.response.render('posts', {
-        posts
+        posts,
+        helpers: {
+          isDelete: (postId: string, userId: string) => {
+            const user = this.request.session.user;
+            if (user) {
+              if (userId.toString() === user.id.toString()) {
+                return `<a href="/post/delete/${postId}" class="bt-delete-post">
+                <i class="fa fa-trash fa-lg" aria-hidden="true"></i>
+                </a>`;
+              }
+            }
+          }
+        }
       });
     } catch (error) {
       console.log(error);
@@ -76,5 +89,31 @@ export default class Posts extends BaseController {
     }
     await this.model('post').mongo().create(post);
     return this.response.redirect('/posts');
+  }
+  async getDeletePost() {
+    const postId = this.request.params.id;
+    const user = this.request.session.user;
+    if (postId && user) {
+      try {
+        const post = await this.model('post').mongo().findById(postId);
+        if (post.user.toString() === user.id.toString()) {
+          await this.model('post').mongo().findByIdAndRemove(post.id);
+          return this.response.redirect('/posts');
+        }
+      } catch (error) {
+        return this.response.render('error', {
+          errors: {
+            post: `post: ${postId} não encontrado`
+          },
+          message: 'Error on delete post'
+        });
+      }
+    }
+    return this.response.render('error', {
+      errors: {
+        auth: 'Não autorizado'
+      },
+      message: 'Error on delete post'
+    });
   }
  }

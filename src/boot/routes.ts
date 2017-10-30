@@ -4,7 +4,7 @@ const routes: IRoute[] = [
   {
     type: 'get',
     path: '/',
-    controller: 'Home/Home',
+    controller: 'Home',
   },
   {
     type: 'get',
@@ -48,8 +48,18 @@ const routes: IRoute[] = [
   },
   {
     type: 'get',
+    path: '/post/delete/:id',
+    controller: 'Posts@getDeletePost'
+  },
+  {
+    type: 'get',
     path: '/image/:id',
     controller: 'Images@getImage'
+  },
+  {
+    type: 'get',
+    path: '*',
+    controller: 'Errors'
   }
 ];
 

@@ -222,3 +222,12 @@
   color: #de4f4f;
   background-color: #2b2e39;
 }
+.bt-delete-post {
+  text-decoration: none;
+  float: right;
+  background-color: #de4f4f;
+  color: #2b2e39;
+  padding: 10px 8px 10px 10px;
+  text-align: center;
+  border-radius: 100px;
+}
