@@ -1,16 +1,20 @@
 @font-face {
+    font-style: normal;
     font-family: 'ProximaNovaT-Thin';
-    src: url(assets/fonts/2C4B9D_A_0.woff2);
+    src: url(assets/fonts/2C4B9D_A_0.woff2) format('woff2');
 }
 @font-face {
+    font-style: normal;
     font-family: 'ProximaNovaT-ThinBold';
-    src: url(assets/fonts/2C4B9D_D_0.woff2);
+    src: url(assets/fonts/2C4B9D_D_0.woff2) format('woff2');
 }
 @font-face {
+    font-style: normal;
     font-family: 'ProximaNovaT-ThinBold2';
-    src: url(assets/fonts/2C4B9D_B_0.woff2);
+    src: url(assets/fonts/2C4B9D_B_0.woff2) format('woff2');
 }
 @font-face {
+    font-style: normal;
     font-family: 'ProximaNovaT-Bold';
-    src: url(assets/fonts/2C4B9D_11_0.woff2);
+    src: url(assets/fonts/2C4B9D_11_0.woff2) format('woff2');
 }
