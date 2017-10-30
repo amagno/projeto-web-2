@@ -8,7 +8,11 @@ export default class Images extends BaseController {
 
       if (image) {
         this.response.setHeader('Content-Type', image.mimetype);
-        return fs.createReadStream(image.path).pipe(this.response);
+        if (fs.existsSync(image.path)) {
+          return fs.createReadStream(image.path).pipe(this.response);
+        } else {
+          console.log(`image: ${image.path} não existe!`);
+        }
       }
     }
     return this.response.end();
